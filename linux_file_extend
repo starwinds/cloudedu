@@ -1,0 +1,14 @@
+#확장 가능한 파티션 영역 확인₩
+lsblk
+
+#파티션 크기 확장하기: 파일시스템 이름과 번호 입력 
+sudo growpart /dev/xvda 4
+
+#확장된 파티션 크기 확인
+lsblk
+
+#파일 시스템 크기 확장하기 
+sudo resize2fs /dev/xvda4
+
+#늘어난 용량 확인
+df -hT
