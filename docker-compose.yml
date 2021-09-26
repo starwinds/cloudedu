@@ -1,0 +1,9 @@
+version: "3"
+services: 
+ edu_node1:
+  image: 172.27.0.98:5000/ktcloudedu
+  ports: ["8888:8888"]
+ edu_node2: 
+  image: 172.27.0.98:5000/ktcloudedu
+  ports: ["8889:8888"]
+  
