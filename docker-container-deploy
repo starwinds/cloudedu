@@ -1,0 +1,15 @@
+# container의 환경 변수 설정
+# docker build 시 전달/설정: ARG 이용
+## --build-arg key=value 형태로 전달해서 ENV로 정의된 변수에 값을 할당하는 형태
+docker build --build-arg APIKEY='api key' --build-arg SECKEY='secret key' -t {container 이름}:{버전} .
+# docker run 시 전달/설정: ENV 이용
+#
+# docker-compose를 통한 배포
+## docker-compose.yaml이 있는 디렉토리에서 아래 명령어 실행
+# back ground로 모두 배포 
+docker-compose up -d 
+# 배포된 컨테이너 확인 
+docker-compose ps 
+# 배포된 컨테이너 중지/삭제
+docker-compose down 
+
