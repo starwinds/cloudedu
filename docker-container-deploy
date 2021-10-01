@@ -14,3 +14,10 @@ docker-compose ps
 docker-compose down 
 # docker-compose.yml에 포트범위를 지정하고 scale 인자를 통해 자동 배포하기 
 docker-compose up --scale edu_node=3 -d
+
+# Dockerfile에서 jupyter notebook password 설정
+## ipython 실행 -> sha1으로 패스워드 생성 -> 생성된 패스워드를 jupyter notebook 설정 파일에 추가 
+# ipython
+from notebook.auth import passwd
+passwd('password','sha1')
+  

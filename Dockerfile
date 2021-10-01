@@ -7,3 +7,5 @@ ARG SECKEY
 ENV KTCAPI="${APIKEY}"
 ENV KTCSEC="${SECKEY}"
 ENV PYTHONPATH "${PYTHONPATH}:./ktcloud-toolkit"
+ARG PASSWD
+RUN echo "c.NotebookApp.password='${PASSWD}'" >> /home/jovyan/.jupyter/jupyter_notebook_config.py
