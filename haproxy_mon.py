@@ -24,8 +24,8 @@ if __name__=="__main__":
 
 	dt = datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S")
 	filename = dir_backup + 'haproxy.cfg-' + dt
-	print("filename =" + filename)
-	try:
+	
+        try:
 		copyfile(dir_backup+'haproxy.cfg.tmp',filename)
 	except:
 		print("error - copyfile:tmp")
@@ -40,14 +40,11 @@ if __name__=="__main__":
 		if item['lifecyclestate'] == 'InService':
 			vmid_list.append(item['instanceid'])
 	
-	print(vmid_list)
 	vm_ip_list = []
 	for vm_id in vmid_list:
 		response_vm = server.listVirtualMachines(zone="KR-M2",id=vm_id)
 		vm_private_ip = response_vm['listvirtualmachinesresponse']['virtualmachine'][0]['nic'][0]['ipaddress']
 		vm_ip_list.append(vm_private_ip)
-
-	print(vm_ip_list)
 
 	for vm_ip in vm_ip_list:
 		f.write("server was" + str(server_count) + " " + vm_ip  + ":5000 check fall 4 rise 2\n")
@@ -55,14 +52,12 @@ if __name__=="__main__":
 	f.close()
 
 	diff = filecmp.cmp(dir_conf+'haproxy.cfg',filename)
-	print(diff)
-	
+        # haproxy.conf에 변화가 없으면(diff=True) 작업한 temp 파일 삭제	
+        # 변화가 있을 경우, 기존 conf 파일 백업 후 신규 작업 파일로 대체/haproxy 재시작
 	if diff:
 		os.remove(filename)
-		print("run diff")
 	else:
 		dt_backup = datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S")
-		print("dt_backup: "+dt_backup)
 		try:
 			move(dir_conf+'haproxy.cfg',dir_backup+"backup-haproxy.cfg-"+dt_backup)
 			move(filename,dir_conf+'haproxy.cfg')
